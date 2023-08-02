@@ -1,0 +1,137 @@
+/* design button */
+*,
+*:after,
+*:before {
+    box-sizing: border-box;
+}
+:root {
+    --transition: 0.4s;
+    --spark: 1.8s;
+}
+
+.button-main {
+    background: linear-gradient(120deg,#ff9627 0%,#fb3752 50%,#a100fc 100%);
+    font-size: 19px;
+    font-weight: 500;
+    border: 0;
+    cursor: pointer;
+    padding: 12px 20px 12px 20px;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    border-radius: 100px;
+    position: relative;text-decoration: none;
+    transition: box-shadow var(--transition), scale var(--transition);
+  width:fit-content;
+}
+
+.button-main:active {
+  scale: 1;
+}
+
+.sparkle-button svg {
+    overflow: visible !important;
+}
+
+.sparkle path {
+    color: hsl(0 0% calc((var(--active, 0) * 70%) + var(--base)));
+    transform-box: fill-box;
+    transform-origin: center;
+    fill: currentColor;
+    stroke: currentColor;
+    animation-delay: calc((var(--transition) * 1.5) + (var(--delay) * 1s));
+    animation-duration: 0.6s;
+    transition: color var(--transition);
+}
+
+.button-main:is(:hover, :focus-visible) path {
+    animation-name: bounce;
+}
+
+@keyframes bounce {
+    35%, 65% {
+        scale: var(--scale);
+    }
+}
+.sparkle path:nth-of-type(1) {
+    --scale: 0.5;
+    --delay: 0.1;
+    --base: 40%;
+}
+
+.sparkle path:nth-of-type(2) {
+    --scale: 1.5;
+    --delay: 0.2;
+    --base: 20%;
+}
+
+.sparkle path:nth-of-type(3) {
+    --scale: 2.5;
+    --delay: 0.35;
+    --base: 30%;
+}
+
+.particle-pen,
+.bodydrop,
+.button-main{
+    --active: 1;
+    --play-state: running;
+}
+
+.sparkle-button {
+    position: relative;
+    width: 100%;
+    max-width: 150px;
+    height: 80px;
+    overflow: hidden;
+    padding-top: 25px;
+    margin: 0 auto;
+  display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.particle-pen {
+    position: absolute;
+    width: 100%;z-index: 1;
+    height: 100%;
+    top: 0;pointer-events: none;
+}
+
+.particle {
+    fill: white;
+    width: calc(var(--size, 0.25) * 1rem);
+    aspect-ratio: 1;
+    position: absolute;
+    top: calc(var(--y) * 1%);
+    left: calc(var(--x) * 1%);
+    opacity: var(--alpha, 1);
+    animation: float-out calc(var(--duration, 1) * 1s) calc(var(--delay) * -1s) infinite linear;
+    transform-origin: var(--origin-x, 1000%) var(--origin-y, 1000%);
+    z-index: -1;
+    animation-play-state: var(--play-state, paused);
+}
+
+.particle:nth-of-type(even) {
+    animation-direction: reverse;
+}
+
+@keyframes float-out {
+    to {
+        rotate: 360deg;
+    }
+}
+
+.sparkle-button .text {
+    background: linear-gradient(90deg, hsl(0 0% calc((var(--active) * 100%) + 65%)), hsl(0 0% calc((var(--active) * 100%) + 26%)));
+    -webkit-background-clip: text;
+    color: #fff;
+    transition: background var(--transition);
+  line-height: 0px;
+}
+
+.button-main svg {
+    text-decoration: none;
+    inline-size: 1.25em;
+    translate: -25% -5%;
+}
